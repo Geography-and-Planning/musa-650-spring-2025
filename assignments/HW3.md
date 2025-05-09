@@ -1,30 +1,85 @@
-# MUSA 650 Homework 3: Exploring Applications of Remote Sensing in Urban Planning
+# MUSA 650 Homework 4: EuroSAT Land Use and Land Cover Classification using Machine Learning and Deep Learning
 
-This assignment is designed to help you explore the diverse applications of remote sensing in urban planning by examining either a technical research paper or a real-world practical implementation. You will create a visual and engaging summary that can be shared with your classmates and potentially with a wider audience (e.g., LinkedIn or Medium).
+In this homework, we will explore land use and land cover (LULC) classification, comparing traditional machine learning and deep learning approaches.
 
-We will make time in class to present the results with each other. Please submit your work as a document (e.g., PDF, .docx, etc.) uploaded to your GitHub repository, opening a pull request to the main repo as usual.
+You are responsible for figuring out the code independently and may refer to tutorials, code examples, or use AI support, but **please cite all sources**.
 
-## Step 1: Choose Your Focus
+Submit a single Jupyter Notebook containing code, narrative text, visualizations, and answers to each question. Open a pull request from your fork of this repository to the main repository for submission.
 
-Choose **one** of the following options to explore:
+## 1. Data Loading, Processing, and Exploration
 
-1. **Technical Research Paper**: Find an academic paper on Google Scholar that presents a technical or methods-focused application of remote sensing, such as a novel spectral analysis technique, a machine learning model, or another advanced remote sensing method. The paper must focus on a country outside of the United States.
-2. **Real-World Use Case**: Identify a practical implementation of remote sensing within a business, nonprofit, or government context outside the United States. This could be an example of remote sensing applied in urban planning, environmental monitoring, disaster response, or another relevant area.
+Visit [the EuroSAT data description page](https://github.com/phelber/eurosat) and download the data. Perform basic exploratory data analysis, assessing the class distribution across the dataset and plotting one image from each class in a 2x5 grid.
 
-## Step 2: Create a Shareable Summary
+Flatten the images into a 2D data matrix (x x p, where n is the number of samples and p is the number of pixels in each image). Load these and the labels into the numpy arrays. Split the data into training (60%) and testing (40%) datasets, stratified on class labels (so that there is an equal percentage of each class type in each of the training and testing sets).
 
-Your task is to create a summary that is **visual, compelling, and easily shareable**. You can choose **one** of the following formats for your summary:
+Lastly, create a grayscale version of this dataset. You will use this for the traditional machine learning models and the first couple of deep learning models.
 
-1. **Medium-Style Article**: Write a 300–500 word Medium-style article that introduces your chosen research or application to a broad audience. Include an engaging opening, a brief explanation of the application, key insights, and a question for further thought. Add at least one relevant visual (e.g., image, map, or chart) to enhance the article.
-2. **Slide Deck (5-7 Slides)**: Design a short slide deck that presents your chosen research or application. Include a title slide, 1–2 slides for background, 2–3 slides for key takeaways and insights, and a final slide with an open-ended question. Use visuals such as screenshots, diagrams, or thematic icons.
-3. **Infographic or One-Pager**: Create a visually engaging one-page document that summarizes the key points of your research or application. Break down the information into sections with headings, bullet points, and icons or visuals to make it easy to follow.
+**Bonus:** Before splitting the data into training and testing sets or doing any preprocessing, apply data augmentation to increase the size of the dataset, appending the new samples to the original dataset. Indicate the augmentation approach(es) that you used and the total size of the new dataset. Again, plot three random images and a histogram of the label distribution across the full dataset.
 
-## Step 3: Include Key Elements
+## 2. Traditional Machine Learning
 
-In your summary, be sure to include:
+For this first section, we will only use the categories "Forest (F)", "Residential (R)" and "Industrial (I)". Make sure to subset the grayscale dataset, select only for these three classes.
 
-- **Purpose**: Describe the purpose of the research or practical application.
-- **Impact**: Explain why this application is significant or how it contributes to urban planning.
-- **Key Takeaways**: Highlight any surprising findings or key insights.
-- **Question for Further Thought**: Pose an open-ended question inspired by your research or application.
-- **Citation**: Include a citation for the academic paper or real-world application.
+### 2.1 Binary Support Vector Machine
+
+Implement three binary SVM classifiers (use a linear kernel and default parameters) to classify [F vs R], [F vs I] and [R vs I]. Report the accuracy of each classifier, plot their ROC curves, calculate the AUCs, and show one image that is mis-classified by each classifier, including both the predicted label and the ground truth..
+
+### 2.2 Multiclass, Majority-Vote Support Vector Machine
+
+Combine the three SVM models trained in the previous section to create a three-class classifier. The combined model will apply each one of the 3 classifiers on the testing data and will apply majority voting to decide the final class of the test sample. Again, calculate the accuracy, ROC, and AUC, and show a mis-classified image from each class, including both the predicted label and the ground truth.
+
+### 2.3 Multiclass Random Forest
+
+Train a Random-Forest classifier to classify the data into one of the three classes. Use the training data. Apply the trained model on testing data. Report the accuracy, plot the confusion matrix, and print a mis-classified image from each class, including both the predicted label and the ground truth.
+
+## 3. Deep Learning
+
+For this section, we will use the full range of possible land cover categories, so do not filter the training and testing datasets for only certain labels.
+
+### 3.1 Greyscale Images
+
+For this section, use the same greyscale images that you used in the traditional machine learning section.
+
+#### 3.1.1 Model One
+
+Implement a first deep learning model using a fully connected network with a single fully connected layer (i.e: input layer + fully connected layer as the output layer). Visualize the network architecture. (Refer to https://faroit.com/keras-docs/2.0.8/visualization/ to see the import command and function needed to visualize the architecture.) Calculate classification accuracy on the test data. (Hint: what kind of pre-processing might be necessary so that this model and the subsequent ones can handle categorical labels? Why?)
+
+#### 3.1.2 Model Two
+
+Implement a second deep learning model adding an additional fully connected hidden layer (with an arbitrary number of nodes) to the previous model. Visualize the network architecture. Calculate classification accuracy on the test data. How did adding an additional hidden layer affect your model's performance? Why might additional hidden layers improve or potentially worsen accuracy?
+
+#### 3.1.3 Model Three
+
+Implement a third deep learning model adding two additional fully connected hidden layers (with arbitrary number of nodes) for a total of four, as well as drop-out layers to the previous model. Visualize the network architecture. Calculate classification accuracy on the test data. What did you observe about the impact of dropout layers on the model’s performance? Explain how dropout helps in model training and under what circumstances it might be more or less effective.
+
+#### 3.1.4 Model Comparison
+
+Compare models one through three. Which network had the most parameters to learn, and by what margin? Which model was the "best"? Why? For each model, what is the impact of increasing the number of training epochs?
+
+**Bonus:** Implement an ensemble model that incorporates the predictions of models one through three. Calculate its classification accuracy on the test data. How does this compare to the accuracies of the three individual model? Describe the ensemble approach you implemented. Why might ensembling improve model accuracy compared to the individual models?
+
+### 3.2 RGB Images
+
+For this section, use the original RGB images.
+
+#### 3.2.1 Model Four
+
+Implement a fourth deep learning model, a convolution neural network (CNN) that includes the following layers: Conv2D, MaxPooling2D, Dropout, Flatten, Dense. Visualize the network architecture. Calculate classification accuracy on the test data. Compare against previous models. Which model was the "best"? Why? Did you notice any limitations in terms of training speed compared to the previous models?
+
+How does the CNN model handle spatial information differently than the fully connected models? What implications does this have for image classification? Compare the training speed of CNNs with the fully connected networks. Why do CNNs generally require more computational resources?
+
+#### 3.2.2 Model Five
+
+Implement a fifth deep learning model targeting accuracy that will outperform all previous models. You are free to use any tools and techniques, including ensemble models and pre-trained models for transfer learning. Calculate classification accuracy on the test data. What specific tools or techniques did you choose to improve accuracy? Why did you select these approaches over others? Compare against previous models. Which model was the "best"? Why?
+
+What are the two classes with the highest labeling error? Explain using data and showing mis-classified examples. Why do you think this is? Can you think of any strategies or approaches that might help to address this issue?
+
+### 3.3 Multispectral Images
+
+Apply your best model on multispectral images. You may use whichever image channels you wish, so long as you use more than just RGB (although you are not required to use any color channels). Calculate classification accuracy on the test data. Compare against results using RGB images.
+
+How did adding multispectral channels impact your model’s performance? Explain the role of additional spectral information in enhancing land cover classification.
+
+## 4. Reflection Questions
+
+What are your takeaways from tuning the parameters of the different models? What are your observations about increasing the number of training epochs? Did you run into any challenges or limitations when doing this? What was the impact of using dropout? If you answered the bonus questions, how did the ensemble models compare to the other models? What kinds of challenges or limitations did you encounter when preparing and training the models for this assignment, and how might you address them in the future? How might you apply what you've learned about model tuning, dropout, and data processing to a different deep learning problem?
