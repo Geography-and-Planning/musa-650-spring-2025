@@ -2,19 +2,15 @@
 
 In this assignment, you will use Google Earth Engine via Python to implement multi-class land cover classification. You will hand-label Landsat 8 satellite images which you will then use to train a random forest model. Along the way, you will consider practical remote sensing issues like cloud cover, class imbalances, and feature selection.
 
-## Important Note on Google Earth Engine
-
-**Google Earth Engine Scaling:** If you encounter scaling issues with GEE, this typically indicates something wrong with your code rather than limitations of the platform. GEE is built to handle this type of task efficiently at scale by running computations on the server side. If you experience scaling problems, review your code structure and consult the provided resources. While GEE has a bit of a steep learning curve, mastering its approach to large-scale data processing is valuable for remote sensing work.
-
-**This assignment requires you to work in groups of 2-3 students. No individual assignments will be accepted. One member of the group should submit on behalf of everyone, making sure to include all group members' names at the top of the notebook.**
-
 You are responsible for figuring out the code independently and may refer to tutorials, code examples, or use AI support, but **please cite all sources**.
 
 In particular, we encourage you to consult the [official Python Google Earth Engine `geemap` package](https://geemap.org/), the online course [Spatial Thoughts](https://spatialthoughts.com/courses/google-earth-engine/), and the [Google Earth Engine Tutorials book](https://google-earth-engine.com/).
 
 ## Submission Guidelines
 
-Submit your work via a Pull Request to the main branch of this repository with the following structure:
+**This assignment requires you to work in groups of 2-3 students. No individual assignments will be accepted. One member of the group should submit on behalf of everyone, making sure to include all group members' names at the top of the notebook.**
+
+Submit your work via a pull request to the main branch of this repository with the following structure:
 
 ```
 assignments/
@@ -34,8 +30,6 @@ Your Jupyter notebook must:
 - Be well-formatted with appropriate code chunks (no overly long code blocks)
 - Be linted and formatted using [`ruff`](https://docs.astral.sh/ruff/) before submission
 
-Code quality will be factored into your grade. Break your code into logical chunks rather than having dozens of lines in a single cell.
-
 Since interactive embeds (e.g., `geemap`) do not render properly in static Jupyter notebooks, please include a .gif of you clicking through each layer in your map. Embed this .gif in your notebook and include it in your submission folder.
 
 ## 1. Setup
@@ -52,7 +46,7 @@ Using the [interactive `geemap` interface](https://www.youtube.com/watch?v=VWh5P
 
 If you choose to base your labels on an existing land cover dataset, be aware that this means you're training a model on another model's outputs. This can lead to compounded inaccuracies, as your model will inherit the errors of the original dataset. To mitigate this, consider using only the most certain labels from the original dataset (e.g., those with a high probability score) or look for agreement between multiple datasets.
 
-**Note:** Everything from here on out (feature engineering, model training and evaluation, accuracy assessment) **must** be done in Earth Engine, not scikit-learn or other platforms. The goal is specifically to learn how to use Earth Engine.
+**Note:** Everything from here on out (feature engineering, model training and evaluation, accuracy assessment) **must** be done in Earth Engine, not scikit-learn or other platforms. The goal is specifically to learn how to use Earth Engine. If you encounter scaling issues with GEE, this typically indicates something wrong with your code rather than limitations of the platform. GEE is built to handle this type of task efficiently at scale by running computations on the server side. If you experience scaling problems, review your code structure and consult the provided resources. While GEE has a bit of a steep learning curve, mastering its approach to large-scale data processing is valuable for remote sensing work.
 
 ### 2.2 Feature Engineering
 
@@ -98,17 +92,16 @@ Did your model perform better on one class than another? Why? Can you think of a
 
 How did you handle overfitting in the model? Where do you think it came from (e.g., too many features, too few samples, a model with too many trees, etc.)?
 
-# MUSA 650 Homework 2 Rubric (10 points)
+## 5. Rubric (10 points)
 
-| Category                                        | Weight | Excellent                                                                                                                           | Satisfactory                                              | Unsatisfactory                                     |
-| ----------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- | -------------------------------------------------- |
+| Category                                        | Weight | Excellent                                                                                                                           | Satisfactory                                          | Unsatisfactory                                     |
+| ----------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------------------------------------------------- |
 | **Conceptual Understanding & Discussion (70%)** |
-| Feature Engineering Analysis                    | 1.5    | In-depth discussion of feature selection rationale; critical analysis of how each feature contributes                               | Adequate discussion of features with some analytical gaps | Minimal or no discussion of feature choices        |
-| Model Training & Feature Importance Discussion  | 2.0    | Comprehensive discussion of model decisions; insightful analysis of feature importance; thoughtful handling of statistical concerns | Adequate discussion with basic analysis of results        | Limited or incorrect analysis of model choices     |
-| Accuracy Assessment & Interpretation            | 1.5    | Insightful discussion of metric selection, interpretation of results; thoughtful comparative analysis with ESA data                 | Sound discussion with competent interpretation            | Minimal or incorrect interpretation of results     |
-| Reflection & Critical Thinking                  | 2.0    | Thoughtful critical analysis of limitations and implications, connections to theory                                                 | Adequate reflection with some theoretical connections     | Superficial or missing reflection                  |
+| Model Training & Feature Importance Discussion  | 2.0    | Comprehensive discussion of model decisions; insightful analysis of feature importance; thoughtful handling of statistical concerns | Adequate discussion with basic analysis of results    | Limited or incorrect analysis of model choices     |
+| Accuracy Assessment & Interpretation            | 2.0    | Insightful discussion of metric selection, interpretation of results; thoughtful comparative analysis with ESA data                 | Sound discussion with competent interpretation        | Minimal or incorrect interpretation of results     |
+| Reflection & Critical Thinking                  | 3.0    | Thoughtful critical analysis of limitations and implications, connections to theory                                                 | Adequate reflection with some theoretical connections | Superficial or missing reflection                  |
 | **Technical Implementation (30%)**              |
-| Code Functionality & Execution                  | 1.0    | Fully functional code with well-considered implementation                                                                           | Working code with minor issues                            | Non-functional or severely flawed code             |
-| Code Organization & Documentation               | 1.0    | Logically structured; well-commented; follows best practices                                                                        | Generally organized with adequate documentation           | Poor organization or insufficient documentation    |
-| Formatting & Best Practices                     | 0.5    | Properly formatted with ruff; consistent style                                                                                      | Minor formatting issues                                   | No evidence of code quality standards              |
-| Submission Requirements                         | 0.5    | All requirements met professional presentation                                                                                      | Minor issues but complete                                 | Incomplete submission or major formatting problems |
+| Code Functionality & Execution                  | 1.0    | Fully functional code with well-considered implementation                                                                           | Working code with minor issues                        | Non-functional or severely flawed code             |
+| Code Organization & Documentation               | 1.0    | Logically structured; well-commented; follows best practices                                                                        | Generally organized with adequate documentation       | Poor organization or insufficient documentation    |
+| Formatting & Best Practices                     | 0.5    | Properly formatted with ruff; consistent style                                                                                      | Minor formatting issues                               | No evidence of code quality standards              |
+| Submission Requirements                         | 0.5    | All requirements met professional presentation                                                                                      | Minor issues but complete                             | Incomplete submission or major formatting problems |
