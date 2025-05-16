@@ -4,6 +4,18 @@
 
 For this final assignment in MUSA 650, you will design and implement a machine learning-based remote sensing solution to address a specific problem in urban planning. Your goal is to clearly identify the problem, define your target users, and develop a solution that uses Python-based remote sensing and machine learning techniques. This project will evaluate both your technical approach (50%) and a polished, five-minute lightning talk (50%) geared toward professional audiences.
 
+## Submission Guidelines
+
+Please follow the [general submission guidelines](../../README.md#submission-guidelines) in the course README. For this assignment, you must include the following files in your submission:
+
+```
+assignments/
+  submissions/
+    FINAL_PROJECT/
+      FINAL_PROJECT.ipynb
+      FINAL_PROJECT_presentation.pdf (or other format as specified in Lightning Talk section)
+```
+
 ## Objectives
 
 - Identify an urban planning problem and define your target user.
@@ -56,9 +68,9 @@ For this final assignment in MUSA 650, you will design and implement a machine l
 ### 5. Quantitative and Qualitative Analysis
 
 - **Evaluation Metrics**: Describe and justify the evaluation metrics you used (e.g., accuracy, precision, recall, F1-score, Intersection over Union).
-- **Quantitative Evaluation**: Report your model’s performance based on these metrics.
+- **Quantitative Evaluation**: Report your model's performance based on these metrics.
 - **Qualitative Analysis**: Describe strengths and limitations of your solution. Consider:
-  - **Labeled Data Availability**: Was there enough labeled data, and did this affect the model’s accuracy?
+  - **Labeled Data Availability**: Was there enough labeled data, and did this affect the model's accuracy?
   - **Data Augmentation**: Discuss if data augmentation was used to improve performance.
   - **Computation Requirements**: Describe how computation requirements (e.g., using a local machine vs. cloud computing) impacted your solution.
   - **Scalability**: Address the feasibility of scaling this solution and the resources needed.
@@ -85,4 +97,15 @@ For this final assignment in MUSA 650, you will design and implement a machine l
 - **Code and Analysis** (50%): Evaluation based on the technical depth, workflow, and rigor of your code, analysis, and evaluation.
 - **Lightning Talk** (50%): Grading will focus on clarity, professionalism, presentation quality, and alignment with a professional portfolio.
 
-Make sure your submission is **well-documented** and **easy to follow** for any potential viewers or evaluators. Best of luck, and we look forward to seeing your innovative solutions!
+## Rubric (40 points total)
+
+| Category                          | Weight | Excellent                                                                 | Satisfactory                                 | Unsatisfactory                           |
+| --------------------------------- | ------ | ------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------- |
+| **Code and Analysis (30 points)** |
+| Problem Definition & Research     | 7.5    | Clear problem statement; thorough literature review; strong justification | Adequate problem definition and research     | Unclear problem or insufficient research |
+| Data & Model Implementation       | 7.5    | Well-designed architecture; thorough preprocessing; clear documentation   | Functional implementation with minor issues  | Poor implementation or missing elements  |
+| Evaluation & Analysis             | 7.5    | Comprehensive metrics; thorough analysis; clear limitations discussion    | Basic evaluation with some analysis          | Limited or missing evaluation            |
+| Technical Depth                   | 7.5    | Advanced techniques; novel approaches; clear rationale for choices        | Standard approaches with basic justification | Basic or inappropriate techniques        |
+| **Presentation (10 points)**      |
+| Content & Structure               | 7.5    | Clear narrative; logical flow; professional format; compelling story      | Adequate structure with minor issues         | Poor organization or unclear content     |
+| Design & Delivery                 | 2.5    | Professional visuals; engaging delivery; clear information hierarchy      | Basic visuals with adequate presentation     | Poor visuals or unprofessional delivery  |

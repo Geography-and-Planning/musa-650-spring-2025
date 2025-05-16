@@ -1,63 +1,100 @@
-# MUSA 650 Homework 2: Supervised Land Use Classification with Google Earth Engine
+# MUSA 650 Homework 2: Exploring Applications of Remote Sensing in Urban Planning
 
-In this assignment, you will use Google Earth Engine via Python to implement multi-class land cover classification. You will hand-label Landsat 8 satellite images which you will then use to train a random forest model. Along the way, you will consider practical remote sensing issues like cloud cover, class imbalances, and feature selection.
+In this assignment, you will explore the diverse applications of remote sensing in urban planning by examining either a technical research paper or a real-world practical implementation. You will create a visual and engaging summary that can be shared with your classmates and potentially with a wider audience (e.g., LinkedIn or Medium).
 
-**Given that hand-labeling data can be time-consuming, you are encouraged to work in pairs or groups of three to share the workload. You may collaborate on generating the hand-labeled data, provided you submit separate assignment files. If you choose to do this, you should all use the same ROI, of course.**
+## Submission Guidelines
 
-You are responsible for figuring out the code independently and may refer to tutorials, code examples, or use AI support, but **please cite all sources**.
+Please follow the [general submission guidelines](../../README.md#submission-guidelines) in the course README. For this assignment, you must include the following files in your submission:
 
-In particular, we encourage you to consult the [official Python Google Earth Engine `geemap` package](https://geemap.org/), the online course [Spatial Thoughts](https://spatialthoughts.com/courses/google-earth-engine/), and the [Google Earth Engine Tutorials book](https://google-earth-engine.com/).
+```
+assignments/
+  submissions/
+    HW2/
+      HW2_summary.pdf
+```
 
-Submit a single Jupyter Notebook containing code, narrative text, visualizations, and answers to each question. Please also upload your classification results as a GeoTIFF and your accuracy assessment as a CSV file. Open a pull request from your fork of this repository to the main repository for submission.
+## 1. Choose Your Focus
 
-## 1. Setup
+Select **one** of the following options to explore:
 
-For this assignment, you will define the region of interest (ROI) of your choice. We recommend picking an urban area large enough that you will have a sufficient sample size but not so large that it will take an excessively long time to process.
+### 1.1 Technical Research Paper
 
-You'll also use Landsat 8 satellite imagery from USGS for this assignment. Choose images from 2023, filtering for images with minimal cloud cover.
+Find an academic paper on Google Scholar that presents a technical or methods-focused application of remote sensing, such as:
 
-## 2. Data Collection and Feature Engineering
+- Novel spectral analysis techniques
+- Machine learning models
+- Advanced remote sensing methods
 
-### 2.1 Collecting and Labeling Training Data
+**Note:** The paper must focus on a country outside of the United States.
 
-Using the [interactive `geemap` intereface](https://www.youtube.com/watch?v=VWh5PxXPZw0) or another approach (e.g., QGIS, ArcGIS, a GeoJSON file, etc.), create at least 100 samples (points or polygons) for each of the following four classes: urban, bare, water, and vegetation. (Again, we encourage you to work in pairs or groups of three to generate these hand labels.) Use visual cues and manual inspection to ensure that the samples are accurate. Assign each class a unique label (e.g., 0 for urban, 1 for bare, 2 for water, and 3 for vegetation) and merge the labeled samples into a single dataset. You are free to propose any labels you like, as long as 1) you include at least 4 classes, and 2) you justify why they are appropriate for a remote sensing task (for example, including a label for ice cream shops wouldn't make sense, because those can't be detected from aerial imagery).
+### 1.2 Real-World Use Case
 
-### 2.2 Feature Engineering.
+Identify a practical implementation of remote sensing within a business, nonprofit, or government context outside the United States. This could include:
 
-For possible use in the model, calculate and add the following spectral indices:
+- Urban planning applications
+- Environmental monitoring
+- Disaster response
+- Other relevant areas
 
-- **NDVI** (Normalized Difference Vegetation Index)
-- **NDBI** (Normalized Difference Built-up Index)
-- **MNDWI** (Modified Normalized Difference Water Index)
+## 2. Create a Shareable Summary
 
-Additionally, add elevation and slope data from a DEM. Normalize all image bands to a 0 to 1 scale for consistent model input.
+Choose **one** of the following formats for your summary:
 
-For bonus points, consider adding [kernel filters](https://google-earth-engine.com/Advanced-Image-Processing/Neighborhood-based-Image-Transformation/) (e.g., edge detection, smoothing) to see if they improve model performance.
+### 2.1 Medium-Style Article
 
-## 3. Model Training and Evaluation
+A 300-500 word article written in a journalistic style, suitable for publication on Medium or similar platforms.
 
-### 3.1 Model Training
+### 2.2 Slide Deck
 
-Split your data into a training dataset (70%) and a validation dataset (30%). Train and evaluate a random forest model using the training set with all engineered features.
+A concise 5-7 slide presentation that could be delivered in a professional setting.
 
-After training, analyze [variable importance scores](https://stackoverflow.com/questions/74519767/interpreting-variable-importance-from-random-forest-in-gee) to justify each feature's inclusion. Identify which features are most influential in the classification. Report the final features that you keep in your model.
+### 2.3 Infographic or One-Pager
 
-### 3.2 Accuracy Assessment
+A single-page visual summary that effectively communicates key information through graphics and concise text.
 
-Use the trained model to classify the Landsat 8 image, creating a land cover classification map with classes for urban, bare, water, and vegetation (or whatever classes you have chosen).
+Regardless of format, your submission must include all elements listed in Section 3 and maintain a professional, visually engaging presentation.
 
-Using the validation data, generate a confusion matrix and calculate the overall accuracy, precision, and recall. Which classes were confused most often with each other? Why do you think this was?
+## 3. Required Elements
 
-Visually compare your landcover data for your ROI with the corresponding [landcover data from the European Space Agency](https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200). Do your classifications agree? If not, do you notice any patterns in the types of landcover where they differ, or any particular features in the imagery that are hard for your model to recognize (e.g., sand, water, or asphalt)?
+Your summary must include:
 
-Export the classified image as a GeoTIFF and the confusion matrix and accuracy metrics to a CSV file for documentation.
+### 3.1 Purpose
 
-## 4. Reflection Questions
+- Clear description of the research or practical application's purpose
+- Context for why this work matters
 
-What limitations did you run into when completing this assignment? What might you do differently if you repeated it, or what might you change if you had more time and/or resources?
+### 3.2 Impact
 
-What was the impact of feature engineering? Which layers most contributed to the model? Did you expect this? Why or why not?
+- Explanation of significance
+- Contribution to urban planning
+- Potential real-world implications
 
-Did you find it difficult to create the training data by hand? Did you notice any issues with class imbalance? If so, how might you resolve this in the future (hint: consider a different sampling technique).
+### 3.3 Key Takeaways
 
-Did your model perform better on one class than another? Why? Can you think of a reason that this might be good or bad depending on the context?
+- Highlight surprising findings
+- Present key insights
+- Connect to broader implications
+
+### 3.4 Question for Further Thought
+
+- Pose an open-ended question
+- Encourage discussion
+- Connect to future research or applications
+
+### 3.5 Citation
+
+- Proper citation for academic paper or real-world application
+- Follow standard citation format
+
+## 4. Rubric (10 points)
+
+| Category                  | Weight | Excellent                                                     | Satisfactory                                 | Unsatisfactory                  |
+| ------------------------- | ------ | ------------------------------------------------------------- | -------------------------------------------- | ------------------------------- |
+| **Content Quality (60%)** |
+| Purpose & Impact          | 2.0    | Clear, compelling purpose; well-articulated impact            | Adequate explanation of purpose and impact   | Unclear purpose or impact       |
+| Key Takeaways             | 2.0    | Insightful analysis; clear connection to broader implications | Basic analysis with some broader connections | Superficial or missing analysis |
+| Question & Discussion     | 2.0    | Thought-provoking question; strong connection to content      | Relevant question with basic connection      | Weak or irrelevant question     |
+| **Presentation (40%)**    |
+| Visual Design             | 2.0    | Professional, engaging visuals; clear information hierarchy   | Adequate visuals with basic organization     | Poor visuals or organization    |
+| Format & Structure        | 1.0    | Well-structured; logical flow; professional formatting        | Generally organized with minor issues        | Poor structure or formatting    |
+| Citations & References    | 1.0    | Proper citations; complete references                         | Basic citations with minor issues            | Missing or incorrect citations  |

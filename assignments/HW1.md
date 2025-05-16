@@ -1,111 +1,106 @@
-# MUSA 650 Homework 1: Basics of Machine Learning
+# MUSA 650 Homework 1: Supervised Land Use Classification with Google Earth Engine
 
-In this assignment, you’ll explore fundamental machine learning concepts and techniques, with a focus on data preprocessing, image manipulation, and model evaluation. You are responsible for figuring out the code independently and may refer to tutorials, code examples, or use AI support, but **please cite all sources**.
+In this assignment, you will use Google Earth Engine via Python to implement multi-class land cover classification. You will hand-label Landsat 8 satellite images which you will then use to train a random forest model. Along the way, you will consider practical remote sensing issues like cloud cover, class imbalances, and feature selection.
 
-Submit a single Jupyter Notebook containing code, narrative text, visualizations, and answers to each question. Open a pull request from your fork of this repository to the main repository for submission.
+You are responsible for figuring out the code independently and may refer to tutorials, code examples, or use AI support, but **please cite all sources**.
 
-## Important Notes
+In particular, we encourage you to consult the [official Python Google Earth Engine `geemap` package](https://geemap.org/), the online course [Spatial Thoughts](https://spatialthoughts.com/courses/google-earth-engine/), and the [Google Earth Engine Tutorials book](https://google-earth-engine.com/).
 
-- **Sample Size Considerations**: If experiments take too long with the complete dataset, start with a smaller sample for timely execution. For your final submission, use the full dataset if feasible, but if processing is still too intensive, note your sample sizes clearly. Sample size variations will not affect grading if documented appropriately.
-- **Data Reshaping**: To switch between 2D and 1D representations, use functions like `numpy.flatten()` or `numpy.resize()` as needed.
+## Submission Guidelines
 
-## 1. Data Exploration
-
-Load the mnist dataset using the following code, which contains all of the module imports needed for this assignment:
+Please follow the [general submission guidelines](../../README.md#submission-guidelines) in the course README. For this assignment, you must include the following files in your submission:
 
 ```
-import pandas as pandas
-import numpy as np
-import matplotlib.pyplot as plt
-import keras
-
-from keras.datasets import mnist
-
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+assignments/
+  submissions/
+    HW1/
+      HW1.ipynb
+      classification.tif
+      accuracy.csv
+      map-visualization.gif
 ```
 
-### 1.1 Dimensionality
+## 1. Setup
 
-What is the type of the training and testing datasets?
+For this assignment, you will define the region of interest (ROI) of your choice, _provided that it is in a country outside of the United States._ We recommend picking an urban area large enough that you will have a sufficient sample size but not so large that it will take an excessively long time to process.
 
-How many features are in the training dataset? The testing dataset? How many samples are in each dataset?
+You'll also use Landsat 8 satellite imagery from USGS for this assignment. Choose images from 2023, filtering for images with minimal cloud cover. Consider carefully what time of year would be most appropriate for your region of interest and classification goals.
 
-If an array has a shape of `(100, 28, 28)`, what does each number represent in the context of image data (i.e., which number represents the number of images, and which represent the number of pixels?), and how would it change if you flattened it to a 2D array?
+**Required Reflection (1.1):** What time of year did you choose for your satellite imagery, and why? How might this choice affect your ability to accurately classify different land cover types? Would this choice be different if you were working in a different part of the world (e.g., tropical vs. temperate regions)? What tradeoffs did you consider when making this decision?
 
-How would you convert a 3D array into a 2D array without changing the total number of elements? Describe how `flatten()` and `reshape()` can be used for this purpose.
+## 2. Data Collection and Feature Engineering
 
-Explain why it’s necessary to reshape data when transitioning from raw images to model input, particularly in neural networks. What are the implications of reshaping an image array into a vector (1D array) for each sample? (Feel free to turn to Google for this, as long as you cite your sources.)
+### 2.1 Collecting and Labeling Training Data
 
-### 1.2 Visualization
+Using the [interactive `geemap` interface](https://www.youtube.com/watch?v=VWh5PxXPZw0) or another approach (e.g., QGIS, ArcGIS, a GeoJSON file, etc.), create at least 100 samples (points or polygons) for each of the following four classes: urban, bare, water, and vegetation. (Again, we encourage you to work in pairs or groups of three to generate these hand labels.) Use visual cues and manual inspection to ensure that the samples are accurate. Assign each class a unique label (e.g., 0 for urban, 1 for bare, 2 for water, and 3 for vegetation) and merge the labeled samples into a single dataset.
 
-Select one random example from each category in the testing set, display each 2D image, and label it with the corresponding category name.
+If you choose to base your labels on an existing land cover dataset, be aware that this means you're training a model on another model's outputs. This can lead to compounded inaccuracies, as your model will inherit the errors of the original dataset. To mitigate this, consider using only the most certain labels from the original dataset (e.g., those with a high probability score) or look for agreement between multiple datasets.
 
-## 2. Data Processing
+**Required Reflection (2.1):** How might local knowledge about land use practices in your chosen region affect the interpretation of your classification results? Can you give a specific example of a kind of local land cover issue that might be challenging to identify without prior knowledge of the area? Did you find it difficult to create the training data by hand? Did you notice any issues with class imbalance?
 
-### 2.1 Subsetting
-
-Create a 10% random subset of each training and testing set. What is the distribution of each label in the initial train data? What is the distribution of each label in the reduced train data?
-
-Now subset the **first** 10% of each training and testing set. What is the distribution of each label in the initial train data? What is the distribution of each label in the reduced train data?
-
-When reducing dataset size, what differences might you expect to see in results between randomly selecting samples versus selecting the first portion of the dataset? Is this borne out by the subsets you just created? How does the distribution of the labels in the various subsampled datasets compare to the distribution of the full datasets?
-
-Why might subsampling a dataset be beneficial when developing machine learning models? Discuss the trade-offs.
+**Note:** Everything from here on out (feature engineering, model training and evaluation, accuracy assessment) **must** be done in Earth Engine, not scikit-learn or other platforms. The goal is specifically to learn how to use Earth Engine. If you encounter scaling issues with GEE, this typically indicates something wrong with your code rather than limitations of the platform. GEE is built to handle this type of task efficiently at scale by running computations on the server side. If you experience scaling problems, review your code structure and consult the provided resources. While GEE has a bit of a steep learning curve, mastering its approach to large-scale data processing is valuable for remote sensing work.
 
 ### 2.2 Feature Engineering
 
-What are the features versus the output in this assignment? Why is it important to distinguish between features (inputs) and outputs (labels) in a machine learning model?
+For possible use in the model, calculate and add the following spectral indices:
 
-Select all train images labeled "3". Create a single, pixel-wise average image of all of these images. Plot the 2D mean and standard deviation images for category 3 in both the training and testing sets. Comment on the differences between the mean and standard deviation images between the training and testing datasets. Plot the 2D mean and standard deviation images for category "3" in the training and testing sets for the binarized images.
+- **NDVI** (Normalized Difference Vegetation Index)
+- **NDBI** (Normalized Difference Built-up Index)
+- **MNDWI** (Modified Normalized Difference Water Index)
 
-Now repeat this for a new label (e.g., "7"). Comment on the differences between the mean and standard deviation images between the training and testing datasets for the binarized images.
+Calculate [kernel filters](https://google-earth-engine.com/Advanced-Image-Processing/Neighborhood-based-Image-Transformation/) (e.g., edge detection, smoothing) based on the RGB imagery. Add elevation and slope data from a DEM. Normalize all image bands to a 0 to 1 scale for consistent model input.
 
-Binarize both of the images from the previous question by setting pixel values equal to 1 if they are greater than the mean value for that pixel and equal to 0 if they are less than the mean value for that pixel.
+**Required Reflection (2.2):** What is the spatial resolution of your input data? How might this resolution affect your ability to detect certain features (e.g., small water bodies, narrow roads, or mixed land cover types)? What kinds of information might be lost at lower resolution, or gained at higher resolution? What are the tradeoffs of using higher resolution data?
 
-In plain English, what are we actually **doing** when we binarize an image? How does the new pixel value relate to the pixel value of the original image and the mean value for that pixel across all images with that label?
+## 3. Model Training and Evaluation
 
-What is the index of the most **dissimilar** image in category "3" in the training set for the regular images? What about the most **similar** image? Does this change for the binarized images? If so, why? Make sure to plot all four images with approproate labels.
+### 3.1 Model Training
 
-What do you think the effect of binarizing these images is from a machine learning perspective? How does binarization of images (converting pixel values to 0 or 1 based on a threshold) affect the representation of features, and what might be the benefits and limitations of this approach?
+Split your data into a training dataset (70%) and a validation dataset (30%). Train and evaluate a random forest model using the training set with all engineered features.
 
-How does what you've just done relate to the idea of standardizing data? Why might it be important to standardize our data before using it to train a model?
+After training, analyze [variable importance scores](https://stackoverflow.com/questions/74519767/interpreting-variable-importance-from-random-forest-in-gee) to justify each feature's inclusion.
 
-Describe how calculating a pixel-wise mean or standard deviation for a set of images can help you understand variations within a category. What does a high standard deviation indicate in this context?
+Discuss which features are most important. Based on your understanding of the task at hand, why do you think this is? Which features are least important, and why? What might the role of multicolinearity be in this context, and how might it contribute to overfitting (e.g., if two features are highly correlated, they may provide redundant information to the model)? Again, how does this relate to your understanding of what each feature actually represents?
 
-## 3. Model Training, Validation, and Intepretation
+Compare at least two different feature sets (e.g., one with all features and one with only the most important features) to see if there is a difference in model performance. Report the final features that you keep in your model.
 
-### 3.1 Support Vector Machine
+**Required Reflection (3.1):** What was the impact of feature engineering? Which layers most contributed to the model? Did you expect this? Why or why not? Did your model perform better on one class than another? Why? Can you think of a reason that this might be good or bad depending on the context? How did you handle overfitting in the model? Where do you think it came from (e.g., too many features, too few samples, a model with too many trees, etc.)?
 
-From the training dataset, select only images from categories "3" and "9".Subdivide the data into Set1 and Set2, with 60% of the data in Set1 and 40% in Set2. Replace category labels with 0 for 3 and 1 for 9.
-Use Set1 to train a linear support vector machine classifier with default parameters and predict the class labels for Set2. What is the prediction accuracy using the model trained on the training set? What is the prediction accuracy using the model trained on the testing set?
+### 3.2 Accuracy Assessment
 
-### 3.2 Modeling with Engineered Data
+Use the trained model to classify the Landsat 8 image, creating a land cover classification map with your chosen classes.
 
-We describe each image by using a reduced set of features (compared to n = 784 initial features for each pixel value) as follows:
+Using the validation data, generate a confusion matrix. Calculate appropriate validation metrics for the class at hand (a multi-class classification problem). Explain how you selected these validation metrics and what they indicate about the quality of your model.
 
-- Binarize the image by setting the pixel values to 1 if they are greater than 128 and 0 otherwise.
-- For each image row i, find n_i, the sum of 1's in the row (28 features).
-- For each image column j, find n_j, the sum of 1's in the column (28 features).
-- Concatenate these features to form a feature vector of 56 features.
+Visually compare your landcover data for your ROI with the corresponding [landcover data from the European Space Agency](https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200). Do your classifications agree? If not, do you notice any patterns in the types of landcover where they differ, or any particular features in the imagery that are hard for your model to recognize (e.g., sand, water, or asphalt)? Why might this be the case?
 
-What is the prediction accuracy using an SVM model trained on the training set? What is the prediction accuracy using an SVM model trained on the testing set? How about the prediction accuracy of a KNN model trained on the training set? And on the testing set? What does this tell you about the potential impacts of feature engineering?
+**Required Reflection (3.2):** If you had the opportunity to physically visit your study area, how would you go about checking if your classifications are correct? What areas would you prioritize visiting? How would you make sure you're getting a good representation of all the different land cover types in your study area? What practical challenges might you face in the field?
 
-### 3.3 K-Nearest Neighbors
+Export the classified image as a GeoTIFF and the confusion matrix and accuracy metrics to a CSV file for documentation.
 
-In the training and testing datasets, select images in the categories 1, 3, 5, 7, and 9. Train a k-NN classifier using 4 to 40 nearest neighbors, with a step size of 4.
+## 4. Final Reflection
 
-For k = 4, what is the label that was predicted with lowest accuracy?
+### 4.1 Model Performance and Transferability
 
-For k = 20, what is the label that was predicted with lowest accuracy?
+**Required Reflection (4.1):** Answer the following questions about your model's performance and potential applications:
 
-What is the label pair that was confused most often (i.e., class A is labeled as B, and vice versa)?
+- If you were to apply your model to a different region of the world, how do you think it would perform? What factors might affect its performance, and how might you need to modify your approach?
+- How might seasonal changes in vegetation affect your model's performance? What additional features or sampling strategies could help account for these temporal variations?
 
-Visualize 5 mislabeled samples with their actual and predicted labels.
+### 4.2 Overall Assessment
 
-Based on the patterns in the pixel values for each category, which labels (numbers) do you think the model might struggle to identify or distinguish from one another? Explain why certain labels might be more challenging to separate, considering the similarity in pixel patterns or shapes.
+**Required Reflection (4.2):** What limitations did you run into when completing this assignment? What might you do differently if you repeated it, or what might you change if you had more time and/or resources?
 
-### 3.4 Comprehension Questions
+## 5. Rubric (10 points)
 
-Why is it important to have separate training and testing datasets? What potential issues arise if you use the same data for both training and evaluation?
-
-If you achieve a high accuracy on the training set but a lower accuracy on the testing set, what might this indicate about your model’s performance and generalization?
+| Category                                        | Weight | Excellent                                                                                                                           | Satisfactory                                          | Unsatisfactory                                     |
+| ----------------------------------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | -------------------------------------------------- |
+| **Conceptual Understanding & Discussion (70%)** |
+| Model Training & Feature Importance Discussion  | 2.0    | Comprehensive discussion of model decisions; insightful analysis of feature importance; thoughtful handling of statistical concerns | Adequate discussion with basic analysis of results    | Limited or incorrect analysis of model choices     |
+| Accuracy Assessment & Interpretation            | 2.0    | Insightful discussion of metric selection, interpretation of results; thoughtful comparative analysis with ESA data                 | Sound discussion with competent interpretation        | Minimal or incorrect interpretation of results     |
+| Reflection & Critical Thinking                  | 3.0    | Thoughtful critical analysis of limitations and implications, connections to theory                                                 | Adequate reflection with some theoretical connections | Superficial or missing reflection                  |
+| **Technical Implementation (30%)**              |
+| Code Functionality & Execution                  | 1.0    | Fully functional code with well-considered implementation                                                                           | Working code with minor issues                        | Non-functional or severely flawed code             |
+| Code Organization & Documentation               | 1.0    | Logically structured; well-commented; follows best practices                                                                        | Generally organized with adequate documentation       | Poor organization or insufficient documentation    |
+| Formatting & Best Practices                     | 0.5    | Properly formatted with ruff; consistent style                                                                                      | Minor formatting issues                               | No evidence of code quality standards              |
+| Submission Requirements                         | 0.5    | All requirements met professional presentation                                                                                      | Minor issues but complete                             | Incomplete submission or major formatting problems |
