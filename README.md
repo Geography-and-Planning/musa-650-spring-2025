@@ -47,11 +47,9 @@ Based on our experiences teaching (and taking!) this class in previous years, he
 
 ## Grading
 
-There are five assignments over the course of the semester: [three homeworks](assignments/), each worth 10% of the overall grade (for a total of 30%), one [final project proposal](assignments/FINAL_PROJECT_PROPOSAL.md) worth 10%, and one [final project](assignments/FINAL_PROJECT.md) worth 40% of the overall grade. A further 20% of the grade is based on participation.
+There are five assignments over the course of the semester: [three homeworks](assignments/), each worth 10% of the overall grade (for a total of 30%), one [final project proposal](assignments/FINAL_PROJECT_PROPOSAL.md) worth 10%, and one [final project](assignments/FINAL_PROJECT.md) worth 40% of the overall grade. A further 20% of the grade is based on participation. For more information, please see the rubrics included with each assignment.
 
-Each homework assignment will involve the implementation of a machine learning application discussed in class. Homework can be started at any time but is due by the end of class by the date indicated on the syllabus. Unexcused late homework will not be accepted.
-
-Homework and final project grades are not directly linked to the accuracy of the final applications. Rather, multiple factors--such as data organization, model selection, and presentation of the results--will be evaluated. Given the ready availability of code documentation and pair programming tools (e.g., Copilot, ChatGPT), the grade for each homework assignment will be divided evenly between the submitted code and the corresponding responses to the analytical questions.
+Homework can be started at any time but is due by the end of class by the date indicated on the syllabus. Unexcused late homework will not be accepted.
 
 ## Submission Guidelines
 
