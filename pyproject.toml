@@ -1,0 +1,39 @@
+[project]
+name = "musa-650-spring-2025"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "cartopy>=0.24.1",
+    "datashader>=0.18.1",
+    "earthengine-api>=1.5.15",
+    "geemap>=0.35.3",
+    "geopandas>=1.0.1",
+    "geoviews>=1.14.0",
+    "holoviews>=1.20.2",
+    "hvplot>=0.11.3",
+    "ipykernel>=6.29.5",
+    "jupyter-bokeh>=4.0.5",
+    "keras>=3.9.2",
+    "matplotlib>=3.10.3",
+    "np-utils>=0.6.0",
+    "odc-stac>=0.4.0",
+    "pandas>=2.2.3",
+    "panel>=1.7.0",
+    "planetary-computer>=1.0.0",
+    "pre-commit>=4.2.0",
+    "pydot>=4.0.0",
+    "pydotplus>=2.0.2",
+    "pystac-client>=0.8.6",
+    "python-dotenv>=1.1.0",
+    "rasterio>=1.4.3",
+    "rio-cogeo>=5.4.1",
+    "rioxarray>=0.19.0",
+    "ruff>=0.11.10",
+    "scikit-image>=0.25.2",
+    "scikit-learn>=1.6.1",
+    "seaborn>=0.13.2",
+    "xarray>=2025.4.0",
+    "xee>=0.0.20",
+]
