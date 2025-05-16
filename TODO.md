@@ -11,3 +11,5 @@ Quick to-do list before 2026:
 - For final projects, everyone needs to submit at least 3 papers along with their work that explain the theoretical foundations for their work and how they made the decisions they did for their tools, etc.
 - Consider adding pre-commit hook/CI to enforce linting?
 - Lock in repeat/new guest lecturers for next year
+- Update setup docs to confirm they still work
+- Revise labs to make sure they're well-formatted, intuitive, consistent with lectures
