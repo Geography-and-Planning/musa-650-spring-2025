@@ -1,4 +1,4 @@
-# MUSA 650 Homework 2: Supervised Land Use Classification with Google Earth Engine
+# MUSA 650 Homework 1: Supervised Land Use Classification with Google Earth Engine
 
 In this assignment, you will use Google Earth Engine via Python to implement multi-class land cover classification. You will hand-label Landsat 8 satellite images which you will then use to train a random forest model. Along the way, you will consider practical remote sensing issues like cloud cover, class imbalances, and feature selection.
 
@@ -8,35 +8,25 @@ In particular, we encourage you to consult the [official Python Google Earth Eng
 
 ## Submission Guidelines
 
-**This assignment requires you to work in groups of 2-3 students. No individual assignments will be accepted. One member of the group should submit on behalf of everyone, making sure to include all group members' names at the top of the notebook.**
-
-Submit your work via a pull request to the main branch of this repository with the following structure:
+Please follow the [general submission guidelines](../../README.md#submission-guidelines) in the course README. For this assignment, you must include the following files in your submission:
 
 ```
 assignments/
   submissions/
-    HW2/
-      HW2.ipynb
+    HW1/
+      HW1.ipynb
       classification.tif
       accuracy.csv
       map-visualization.gif
 ```
 
-Your Jupyter notebook must:
-
-- Include the assignment number in the filename
-- Contain all instructions from this markdown, followed by the relevant code chunks
-- Include your names and submission date
-- Be well-formatted with appropriate code chunks (no overly long code blocks)
-- Be linted and formatted using [`ruff`](https://docs.astral.sh/ruff/) before submission
-
-Since interactive embeds (e.g., `geemap`) do not render properly in static Jupyter notebooks, please include a .gif of you clicking through each layer in your map. Embed this .gif in your notebook and include it in your submission folder.
-
 ## 1. Setup
 
 For this assignment, you will define the region of interest (ROI) of your choice, _provided that it is in a country outside of the United States._ We recommend picking an urban area large enough that you will have a sufficient sample size but not so large that it will take an excessively long time to process.
 
-You'll also use Landsat 8 satellite imagery from USGS for this assignment. Choose images from 2023, filtering for images with minimal cloud cover. Because we'll be includeing NDVI in our calculations, you'll likely want to choose images from the greenest time of year in your region of choice (summer/rainy season). Be mindful of the differences between the northern and southern hemisphere.
+You'll also use Landsat 8 satellite imagery from USGS for this assignment. Choose images from 2023, filtering for images with minimal cloud cover. Consider carefully what time of year would be most appropriate for your region of interest and classification goals.
+
+**Required Reflection (1.1):** What time of year did you choose for your satellite imagery, and why? How might this choice affect your ability to accurately classify different land cover types? Would this choice be different if you were working in a different part of the world (e.g., tropical vs. temperate regions)? What tradeoffs did you consider when making this decision?
 
 ## 2. Data Collection and Feature Engineering
 
@@ -45,6 +35,8 @@ You'll also use Landsat 8 satellite imagery from USGS for this assignment. Choos
 Using the [interactive `geemap` interface](https://www.youtube.com/watch?v=VWh5PxXPZw0) or another approach (e.g., QGIS, ArcGIS, a GeoJSON file, etc.), create at least 100 samples (points or polygons) for each of the following four classes: urban, bare, water, and vegetation. (Again, we encourage you to work in pairs or groups of three to generate these hand labels.) Use visual cues and manual inspection to ensure that the samples are accurate. Assign each class a unique label (e.g., 0 for urban, 1 for bare, 2 for water, and 3 for vegetation) and merge the labeled samples into a single dataset.
 
 If you choose to base your labels on an existing land cover dataset, be aware that this means you're training a model on another model's outputs. This can lead to compounded inaccuracies, as your model will inherit the errors of the original dataset. To mitigate this, consider using only the most certain labels from the original dataset (e.g., those with a high probability score) or look for agreement between multiple datasets.
+
+**Required Reflection (2.1):** How might local knowledge about land use practices in your chosen region affect the interpretation of your classification results? Can you give a specific example of a kind of local land cover issue that might be challenging to identify without prior knowledge of the area? Did you find it difficult to create the training data by hand? Did you notice any issues with class imbalance?
 
 **Note:** Everything from here on out (feature engineering, model training and evaluation, accuracy assessment) **must** be done in Earth Engine, not scikit-learn or other platforms. The goal is specifically to learn how to use Earth Engine. If you encounter scaling issues with GEE, this typically indicates something wrong with your code rather than limitations of the platform. GEE is built to handle this type of task efficiently at scale by running computations on the server side. If you experience scaling problems, review your code structure and consult the provided resources. While GEE has a bit of a steep learning curve, mastering its approach to large-scale data processing is valuable for remote sensing work.
 
@@ -58,6 +50,8 @@ For possible use in the model, calculate and add the following spectral indices:
 
 Calculate [kernel filters](https://google-earth-engine.com/Advanced-Image-Processing/Neighborhood-based-Image-Transformation/) (e.g., edge detection, smoothing) based on the RGB imagery. Add elevation and slope data from a DEM. Normalize all image bands to a 0 to 1 scale for consistent model input.
 
+**Required Reflection (2.2):** What is the spatial resolution of your input data? How might this resolution affect your ability to detect certain features (e.g., small water bodies, narrow roads, or mixed land cover types)? What kinds of information might be lost at lower resolution, or gained at higher resolution? What are the tradeoffs of using higher resolution data?
+
 ## 3. Model Training and Evaluation
 
 ### 3.1 Model Training
@@ -70,6 +64,8 @@ Discuss which features are most important. Based on your understanding of the ta
 
 Compare at least two different feature sets (e.g., one with all features and one with only the most important features) to see if there is a difference in model performance. Report the final features that you keep in your model.
 
+**Required Reflection (3.1):** What was the impact of feature engineering? Which layers most contributed to the model? Did you expect this? Why or why not? Did your model perform better on one class than another? Why? Can you think of a reason that this might be good or bad depending on the context? How did you handle overfitting in the model? Where do you think it came from (e.g., too many features, too few samples, a model with too many trees, etc.)?
+
 ### 3.2 Accuracy Assessment
 
 Use the trained model to classify the Landsat 8 image, creating a land cover classification map with your chosen classes.
@@ -78,19 +74,22 @@ Using the validation data, generate a confusion matrix. Calculate appropriate va
 
 Visually compare your landcover data for your ROI with the corresponding [landcover data from the European Space Agency](https://developers.google.com/earth-engine/datasets/catalog/ESA_WorldCover_v200). Do your classifications agree? If not, do you notice any patterns in the types of landcover where they differ, or any particular features in the imagery that are hard for your model to recognize (e.g., sand, water, or asphalt)? Why might this be the case?
 
+**Required Reflection (3.2):** If you had the opportunity to physically visit your study area, how would you go about checking if your classifications are correct? What areas would you prioritize visiting? How would you make sure you're getting a good representation of all the different land cover types in your study area? What practical challenges might you face in the field?
+
 Export the classified image as a GeoTIFF and the confusion matrix and accuracy metrics to a CSV file for documentation.
 
-## 4. Reflection Questions
+## 4. Final Reflection
 
-What limitations did you run into when completing this assignment? What might you do differently if you repeated it, or what might you change if you had more time and/or resources?
+### 4.1 Model Performance and Transferability
 
-What was the impact of feature engineering? Which layers most contributed to the model? Did you expect this? Why or why not?
+**Required Reflection (4.1):** Answer the following questions about your model's performance and potential applications:
 
-Did you find it difficult to create the training data by hand? Did you notice any issues with class imbalance? If so, how might you resolve this in the future (hint: consider a different sampling technique).
+- If you were to apply your model to a different region of the world, how do you think it would perform? What factors might affect its performance, and how might you need to modify your approach?
+- How might seasonal changes in vegetation affect your model's performance? What additional features or sampling strategies could help account for these temporal variations?
 
-Did your model perform better on one class than another? Why? Can you think of a reason that this might be good or bad depending on the context?
+### 4.2 Overall Assessment
 
-How did you handle overfitting in the model? Where do you think it came from (e.g., too many features, too few samples, a model with too many trees, etc.)?
+**Required Reflection (4.2):** What limitations did you run into when completing this assignment? What might you do differently if you repeated it, or what might you change if you had more time and/or resources?
 
 ## 5. Rubric (10 points)
 

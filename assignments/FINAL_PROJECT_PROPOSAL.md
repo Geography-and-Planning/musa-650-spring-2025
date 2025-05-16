@@ -4,9 +4,7 @@ In this assignment, you will outline your proposal for the final project for thi
 
 ## Submission Guidelines
 
-**This assignment requires you to work in groups of 2-3 students. No individual assignments will be accepted. One member of the group should submit on behalf of everyone, making sure to include all group members' names at the top of the proposal.**
-
-Submit your work as a PDF via a pull request to the main branch of this repository with the following structure:
+Please follow the [general submission guidelines](../../README.md#submission-guidelines) in the course README. For this assignment, you must include the following files in your submission:
 
 ```
 assignments/

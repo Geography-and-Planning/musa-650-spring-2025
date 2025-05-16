@@ -1,30 +1,100 @@
-# MUSA 650 Homework 3: Exploring Applications of Remote Sensing in Urban Planning
+# MUSA 650 Homework 2: Exploring Applications of Remote Sensing in Urban Planning
 
-This assignment is designed to help you explore the diverse applications of remote sensing in urban planning by examining either a technical research paper or a real-world practical implementation. You will create a visual and engaging summary that can be shared with your classmates and potentially with a wider audience (e.g., LinkedIn or Medium).
+In this assignment, you will explore the diverse applications of remote sensing in urban planning by examining either a technical research paper or a real-world practical implementation. You will create a visual and engaging summary that can be shared with your classmates and potentially with a wider audience (e.g., LinkedIn or Medium).
 
-We will make time in class to present the results with each other. Please submit your work as a document (e.g., PDF, .docx, etc.) uploaded to your GitHub repository, opening a pull request to the main repo as usual.
+## Submission Guidelines
 
-## Step 1: Choose Your Focus
+Please follow the [general submission guidelines](../../README.md#submission-guidelines) in the course README. For this assignment, you must include the following files in your submission:
 
-Choose **one** of the following options to explore:
+```
+assignments/
+  submissions/
+    HW2/
+      HW2_summary.pdf
+```
 
-1. **Technical Research Paper**: Find an academic paper on Google Scholar that presents a technical or methods-focused application of remote sensing, such as a novel spectral analysis technique, a machine learning model, or another advanced remote sensing method. The paper must focus on a country outside of the United States.
-2. **Real-World Use Case**: Identify a practical implementation of remote sensing within a business, nonprofit, or government context outside the United States. This could be an example of remote sensing applied in urban planning, environmental monitoring, disaster response, or another relevant area.
+## 1. Choose Your Focus
 
-## Step 2: Create a Shareable Summary
+Select **one** of the following options to explore:
 
-Your task is to create a summary that is **visual, compelling, and easily shareable**. You can choose **one** of the following formats for your summary:
+### 1.1 Technical Research Paper
 
-1. **Medium-Style Article**: Write a 300–500 word Medium-style article that introduces your chosen research or application to a broad audience. Include an engaging opening, a brief explanation of the application, key insights, and a question for further thought. Add at least one relevant visual (e.g., image, map, or chart) to enhance the article.
-2. **Slide Deck (5-7 Slides)**: Design a short slide deck that presents your chosen research or application. Include a title slide, 1–2 slides for background, 2–3 slides for key takeaways and insights, and a final slide with an open-ended question. Use visuals such as screenshots, diagrams, or thematic icons.
-3. **Infographic or One-Pager**: Create a visually engaging one-page document that summarizes the key points of your research or application. Break down the information into sections with headings, bullet points, and icons or visuals to make it easy to follow.
+Find an academic paper on Google Scholar that presents a technical or methods-focused application of remote sensing, such as:
 
-## Step 3: Include Key Elements
+- Novel spectral analysis techniques
+- Machine learning models
+- Advanced remote sensing methods
 
-In your summary, be sure to include:
+**Note:** The paper must focus on a country outside of the United States.
 
-- **Purpose**: Describe the purpose of the research or practical application.
-- **Impact**: Explain why this application is significant or how it contributes to urban planning.
-- **Key Takeaways**: Highlight any surprising findings or key insights.
-- **Question for Further Thought**: Pose an open-ended question inspired by your research or application.
-- **Citation**: Include a citation for the academic paper or real-world application.
+### 1.2 Real-World Use Case
+
+Identify a practical implementation of remote sensing within a business, nonprofit, or government context outside the United States. This could include:
+
+- Urban planning applications
+- Environmental monitoring
+- Disaster response
+- Other relevant areas
+
+## 2. Create a Shareable Summary
+
+Choose **one** of the following formats for your summary:
+
+### 2.1 Medium-Style Article
+
+A 300-500 word article written in a journalistic style, suitable for publication on Medium or similar platforms.
+
+### 2.2 Slide Deck
+
+A concise 5-7 slide presentation that could be delivered in a professional setting.
+
+### 2.3 Infographic or One-Pager
+
+A single-page visual summary that effectively communicates key information through graphics and concise text.
+
+Regardless of format, your submission must include all elements listed in Section 3 and maintain a professional, visually engaging presentation.
+
+## 3. Required Elements
+
+Your summary must include:
+
+### 3.1 Purpose
+
+- Clear description of the research or practical application's purpose
+- Context for why this work matters
+
+### 3.2 Impact
+
+- Explanation of significance
+- Contribution to urban planning
+- Potential real-world implications
+
+### 3.3 Key Takeaways
+
+- Highlight surprising findings
+- Present key insights
+- Connect to broader implications
+
+### 3.4 Question for Further Thought
+
+- Pose an open-ended question
+- Encourage discussion
+- Connect to future research or applications
+
+### 3.5 Citation
+
+- Proper citation for academic paper or real-world application
+- Follow standard citation format
+
+## 4. Rubric (10 points)
+
+| Category                  | Weight | Excellent                                                     | Satisfactory                                 | Unsatisfactory                  |
+| ------------------------- | ------ | ------------------------------------------------------------- | -------------------------------------------- | ------------------------------- |
+| **Content Quality (60%)** |
+| Purpose & Impact          | 2.0    | Clear, compelling purpose; well-articulated impact            | Adequate explanation of purpose and impact   | Unclear purpose or impact       |
+| Key Takeaways             | 2.0    | Insightful analysis; clear connection to broader implications | Basic analysis with some broader connections | Superficial or missing analysis |
+| Question & Discussion     | 2.0    | Thought-provoking question; strong connection to content      | Relevant question with basic connection      | Weak or irrelevant question     |
+| **Presentation (40%)**    |
+| Visual Design             | 2.0    | Professional, engaging visuals; clear information hierarchy   | Adequate visuals with basic organization     | Poor visuals or organization    |
+| Format & Structure        | 1.0    | Well-structured; logical flow; professional formatting        | Generally organized with minor issues        | Poor structure or formatting    |
+| Citations & References    | 1.0    | Proper citations; complete references                         | Basic citations with minor issues            | Missing or incorrect citations  |

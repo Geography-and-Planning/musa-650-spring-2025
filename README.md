@@ -57,17 +57,43 @@ Finally, come ready to explore! Remote sensing and machine learning are massive 
 
 There are five assignments over the course of the semester: [four homeworks](assignments/), each worth 10% of the overall grade (for a total of 40%) and one [final project](assignments/FINAL_PROJECT.md) worth 40% of the overall grade. A further 20% of the grade is based on participation.
 
-Each homework assignment will involve the implementation of a machine learning application discussed in class. Homework can be started at any time but is due by the end of class by the date indicated on the syllabus. Late homework will be accepted but penalized. You are encouraged to work in groups, but you must submit a homework assignment that is uniquely yours (see our [section on academic integrity](#academic-integrity-and-ai-use)).
+Each homework assignment will involve the implementation of a machine learning application discussed in class. Homework can be started at any time but is due by the end of class by the date indicated on the syllabus. Late homework will be accepted but penalized. **All assignments must be completed in groups of 2-3 students.** One member of the group should submit on behalf of everyone, making sure to include all group members' names at the top of the notebook.
 
-For the term project, you will identify and research a machine learning-based remote sensing problem in urban planning. This will involve collecting and organizing the relevant data, implementing your solution of choice, and delivering a lightning talk (five-minute presentation) on your use case in the final week of class. Grading for the final project is not directly dependent on the successful implementation of the solution to the stated problem, but rather on a coherent, thoughtful analysis of the problem and a thorough justification of the chosen solution, including limitations and potential next steps. Like labs and homeworks,term projects should be completed in groups of 2-3.
+For the term project, you will identify and research a machine learning-based remote sensing problem in urban planning. This will involve collecting and organizing the relevant data, implementing your solution of choice, and delivering a lightning talk (five-minute presentation) on your use case in the final week of class. Grading for the final project is not directly dependent on the successful implementation of the solution to the stated problem, but rather on a coherent, thoughtful analysis of the problem and a thorough justification of the chosen solution, including limitations and potential next steps.
 
 Homework and final project grades are not directly linked to the accuracy of the final applications. Rather, multiple factors--such as data organization, model selection, and presentation of the results--will be evaluated. Given the ready availability of code documentation and pair programming tools (e.g., Copilot, ChatGPT), the grade for each homework assignment will be divided evenly between the submitted code and the corresponding responses to the analytical questions.
 
 _Extra credit is available for contributions to the class codebase._ We will offer minimally half a bonus point (i.e., an extra 0.5% on your final grade) for every substantive pull request made to improve the repository, with more points awarded at our discretion for larger contributions. This can include improvements to documentation, bug fixes, and example code to be used in future years.
 
+### Submission Guidelines
+
+**All assignments must be completed in groups of 2-3 students.** One member of the group should submit on behalf of everyone, making sure to include all group members' names at the top of the notebook.
+
+**Notebook Requirements:**
+
+- All Jupyter notebooks must include the assignment number in the filename
+- All notebooks must contain the complete assignment instructions, followed by the relevant code chunks
+- All notebooks must include group members' names and submission date
+- All code must be well-formatted with appropriate code chunks (no overly long code blocks)
+- All code must be linted and formatted using [`ruff`](https://docs.astral.sh/ruff/) before submission
+
+**Submission Structure:**
+Assignments should be submitted via a pull request to the main branch of this repository with the following structure:
+
+```
+assignments/
+  submissions/
+    [ASSIGNMENT_NAME]/
+      [ASSIGNMENT_NAME].ipynb
+      [other required files]
+```
+
+**Visualization Requirements:**
+For assignments that include interactive visualizations (e.g., `geemap`), please include a .gif of you clicking through each layer in your map. Embed this .gif in your notebook and include it in your submission folder. Do not include the interactive widget itself, as this often doesn't render well on GitHub.
+
 ### Software
 
-This course relies on the use of Python and various related packages. All software is open-source and freely available. We will use common tools to facilitate collaboration and ease of use. You are expected to use VSCode, the Google Cloud SDK, Git, `pipenv`, and `pyenv` during the course in order to make sure that we’re all using consistent environments and minimize dependency issues and other kinds of software problems. For information on setting up your environment, see the [setup docs](docs/SETUP.md).
+This course relies on the use of Python and various related packages. All software is open-source and freely available. We will use common tools to facilitate collaboration and ease of use. You are expected to use VSCode, the Google Cloud SDK, Git, `pipenv`, and `pyenv` during the course in order to make sure that we're all using consistent environments and minimize dependency issues and other kinds of software problems. For information on setting up your environment, see the [setup docs](docs/SETUP.md).
 
 ## Schedule
 
