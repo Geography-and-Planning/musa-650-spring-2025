@@ -97,15 +97,15 @@ assignments/
 - **Code and Analysis** (50%): Evaluation based on the technical depth, workflow, and rigor of your code, analysis, and evaluation.
 - **Lightning Talk** (50%): Grading will focus on clarity, professionalism, presentation quality, and alignment with a professional portfolio.
 
-## Rubric (35 points total)
+## Rubric (40 points total)
 
 | Category                          | Weight | Excellent                                                                 | Satisfactory                                 | Unsatisfactory                           |
 | --------------------------------- | ------ | ------------------------------------------------------------------------- | -------------------------------------------- | ---------------------------------------- |
-| **Code and Analysis (20 points)** |
-| Problem Definition & Research     | 5.0    | Clear problem statement; thorough literature review; strong justification | Adequate problem definition and research     | Unclear problem or insufficient research |
-| Data & Model Implementation       | 5.0    | Well-designed architecture; thorough preprocessing; clear documentation   | Functional implementation with minor issues  | Poor implementation or missing elements  |
-| Evaluation & Analysis             | 5.0    | Comprehensive metrics; thorough analysis; clear limitations discussion    | Basic evaluation with some analysis          | Limited or missing evaluation            |
-| Technical Depth                   | 5.0    | Advanced techniques; novel approaches; clear rationale for choices        | Standard approaches with basic justification | Basic or inappropriate techniques        |
-| **Presentation (15 points)**      |
-| Content & Structure               | 10.0   | Clear narrative; logical flow; professional format; compelling story      | Adequate structure with minor issues         | Poor organization or unclear content     |
-| Design & Delivery                 | 5.0    | Professional visuals; engaging delivery; clear information hierarchy      | Basic visuals with adequate presentation     | Poor visuals or unprofessional delivery  |
+| **Code and Analysis (30 points)** |
+| Problem Definition & Research     | 7.5    | Clear problem statement; thorough literature review; strong justification | Adequate problem definition and research     | Unclear problem or insufficient research |
+| Data & Model Implementation       | 7.5    | Well-designed architecture; thorough preprocessing; clear documentation   | Functional implementation with minor issues  | Poor implementation or missing elements  |
+| Evaluation & Analysis             | 7.5    | Comprehensive metrics; thorough analysis; clear limitations discussion    | Basic evaluation with some analysis          | Limited or missing evaluation            |
+| Technical Depth                   | 7.5    | Advanced techniques; novel approaches; clear rationale for choices        | Standard approaches with basic justification | Basic or inappropriate techniques        |
+| **Presentation (10 points)**      |
+| Content & Structure               | 7.5    | Clear narrative; logical flow; professional format; compelling story      | Adequate structure with minor issues         | Poor organization or unclear content     |
+| Design & Delivery                 | 2.5    | Professional visuals; engaging delivery; clear information hierarchy      | Basic visuals with adequate presentation     | Poor visuals or unprofessional delivery  |
